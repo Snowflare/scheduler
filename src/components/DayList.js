@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import DayListItem from 'components/DayListItem';
 
 
@@ -16,11 +15,5 @@ export default function DayList(props) {
       );
     });
 
-    return dayItems;
-  
-
-  // ReactDOM.render(
-  //   <DayList days={props.days} setDay={props.setDay} day={props.day}/>,
-  //   document.getElementById("root")
-  // );
+  return dayItems;
 }

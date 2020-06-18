@@ -21,8 +21,8 @@ const ERROR_SAVE = 'ERROR_SAVE'
 const ERROR_DELETE = 'ERROR_DELETE'
 
 export default function Appointment(props) {
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
+  const { mode, transition, back } = useVisualMode( 
+    props.interview ? SHOW : EMPTY // Set initial mode 
   );
 
   function save(name, interviewer) {
@@ -30,28 +30,24 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING);
+    transition(SAVING); // Transit to status Saving
     props.bookInterview(props.id, interview).then(
       (response) => {
-         transition(SHOW);
+         transition(SHOW); // Show updated appointment after saving promise resolved
       }
     ).catch(function (error) {
-      // console.log(error);
-      transition(ERROR_SAVE, true);
+      transition(ERROR_SAVE, true); // Transit to error status page and replace lastest history to double back
     }) 
   }
 
   function cancel() {
-    transition(DELETING, true);
+    transition(DELETING, true); // Transit to status Deleting
     props.cancelInterview(props.id).then(
       (response) => {
-         transition(EMPTY);
+         transition(EMPTY); // Show empty appointment after delete promise resolved
       }
     ).catch(function (error) {
-      // console.log(error);
-      transition(ERROR_DELETE, true);
-      // console.log();
-      
+      transition(ERROR_DELETE, true); // Transit to error status page and replace lastest history to double back
     })     
   }
 
@@ -59,7 +55,7 @@ export default function Appointment(props) {
   
   
   return (
-      <article className="appointment">
+      <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={event => transition('CREATE')} />}
       {mode === SHOW && (
@@ -80,7 +76,7 @@ export default function Appointment(props) {
       </article>
   )  
 }
-
+// Storybook Data
 const interviewer = {
   id: 1,
   name: "Sylvia Palmer",
@@ -93,6 +89,7 @@ const interviewers = [
   { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
 ];
+// Stories
 storiesOf("Appointment", module)
   .addParameters({
     backgrounds: [{ name: "white", value: "#fff", default: true }]
