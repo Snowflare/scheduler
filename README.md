@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+Interview Scheduler is a simple interface for users to manage their interviews on time tables
+
 ## Screenshots
 
 ### Home
